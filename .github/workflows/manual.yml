@@ -1,0 +1,63 @@
+name: Elijah-Build-and-push-Images
+
+on:
+  push:
+    branches: [ main ]
+jobs:
+  reverseproxy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: docker login
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKER_USER_NAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+    - name: Build reversproxy image
+      run: docker build --file ./udagram-reverseproxy/Dockerfile --tag ${{ secrets.DOCKER_USER_NAME }}/reverseproxy
+    - name: Push to Dockerhub
+      run: docker push ${{ secrets.DOCKER_USER_NAME }}/reverseproxy:v1
+
+  udagram-feed:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: docker login
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKER_USER_NAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+    - name: Build feed image and push to docker
+      run: docker build --file ./udagram-api-feed/Dockerfile --tag ${{ secrets.DOCKER_USER_NAME }}/udagram-api-feed
+    - name: Push to Dockerhub
+      run: docker push ${{ secrets.DOCKER_USER_NAME }}/udagram-api-feed:v1
+
+  udagram-api-user:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: docker login
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKER_USER_NAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+    - name: Build user image
+      run: docker build --file ./udagram-api-user/Dockerfile --tag ${{ secrets.DOCKER_USER_NAME }}/udagram-api-user
+    - name: Push to Dockerhub
+      run: docker push ${{ secrets.DOCKER_USER_NAME }}/udagram-api-user:v1
+
+  udagram-frontend:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: docker login
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKER_USER_NAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+    - name: Build user image
+      run: docker build --file ./udagram-api-user/Dockerfile --tag ${{ secrets.DOCKER_USER_NAME }}/udagram-api-user
+    - name: Push to Dockerhub
+      run: docker push ${{ secrets.DOCKER_USER_NAME }}/udagram-api-user:v1
+
+
