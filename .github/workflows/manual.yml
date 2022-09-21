@@ -14,7 +14,7 @@ jobs:
         username: ${{ secrets.DOCKER_USER_NAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
     - name: Build reversproxy image
-      run: docker build --file ./udagram-reverseproxy/Dockerfile --tag ${{ secrets.DOCKER_USER_NAME }}/reverseproxy
+      run: docker build . -t ${{ secrets.DOCKER_USER_NAME }}/reverseproxy -f ./udagram-reverseproxy/Dockerfile
     - name: Push to Dockerhub
       run: docker push ${{ secrets.DOCKER_USER_NAME }}/reverseproxy:v1
 
@@ -28,7 +28,7 @@ jobs:
         username: ${{ secrets.DOCKER_USER_NAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
     - name: Build feed image and push to docker
-      run: docker build --file ./udagram-api-feed/Dockerfile --tag ${{ secrets.DOCKER_USER_NAME }}/udagram-api-feed
+      run: docker build . -t ${{ secrets.DOCKER_USER_NAME }}/udagram-api-feed -f ./udagram-api-feed/Dockerfile
     - name: Push to Dockerhub
       run: docker push ${{ secrets.DOCKER_USER_NAME }}/udagram-api-feed:v1
 
@@ -42,7 +42,7 @@ jobs:
         username: ${{ secrets.DOCKER_USER_NAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
     - name: Build user image
-      run: docker build --file ./udagram-api-user/Dockerfile --tag ${{ secrets.DOCKER_USER_NAME }}/udagram-api-user
+      run: docker build . -t ${{ secrets.DOCKER_USER_NAME }}/udagram-api-user -f ./udagram-api-user/Dockerfile
     - name: Push to Dockerhub
       run: docker push ${{ secrets.DOCKER_USER_NAME }}/udagram-api-user:v1
 
@@ -55,9 +55,9 @@ jobs:
       with:
         username: ${{ secrets.DOCKER_USER_NAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
-    - name: Build user image
-      run: docker build --file ./udagram-api-user/Dockerfile --tag ${{ secrets.DOCKER_USER_NAME }}/udagram-api-user
+    - name: Build frontend image
+      run: docker build . -t ${{ secrets.DOCKER_USER_NAME }}/udagram-frontend -f ./udagram-frontend/Dockerfile 
     - name: Push to Dockerhub
-      run: docker push ${{ secrets.DOCKER_USER_NAME }}/udagram-api-user:v1
+      run: docker push ${{ secrets.DOCKER_USER_NAME }}/udagram-frontend:v1
 
 
