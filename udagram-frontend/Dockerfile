@@ -4,13 +4,13 @@ FROM node:14.15.5-alpine3.13 AS ionic
 WORKDIR /usr/src/app
 # Install app dependencies
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
-COPY package*.json ./
+RUN cp package*.json ./usr/src/app
 RUN npm ci
 RUN npm i -g @ionic/cli
 # Bundle app source
-COPY . .
+RUN cp . ./usr/src/app
 RUN ionic build
 ## Run 
 FROM nginx:alpine
 #COPY www /usr/share/nginx/html
-COPY --from=ionic  /usr/src/app/www /usr/share/nginx/html
+RUN cp --from=ionic  /usr/src/app/www /usr/share/nginx/html
