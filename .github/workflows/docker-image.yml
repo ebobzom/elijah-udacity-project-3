@@ -28,7 +28,7 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v3
         with:
-          context: .
+          context: ./udagram-reverseproxy
           file: ./udagram-reverseproxy/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USER_NAME }}/reverseproxy:v1
@@ -55,7 +55,7 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v3
         with:
-          context: .
+          context: ./udagram-api-user
           file: ./udagram-api-user/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USER_NAME }}/udagram-api-user:v1
@@ -82,7 +82,7 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v3
         with:
-          context: .
+          context: ./udagram-api-feed
           file: ./udagram-api-feed/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USER_NAME }}/udagram-api-feed:v1
@@ -109,7 +109,7 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v3
         with:
-          context: .
+          context: ./udagram-frontend
           file: ./udagram-frontend/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USER_NAME }}/udagram-frontend:v1
