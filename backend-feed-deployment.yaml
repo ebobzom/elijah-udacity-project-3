@@ -17,6 +17,11 @@ spec:
       containers:
       - name: udagram-api-feed
         image: ebobzom/udagram-api-feed:v1
+        resources:
+          requests:
+            cpu: "200m"
+          limits:
+            cpu: "500m"
         ports:
         - containerPort: 80
         env:
